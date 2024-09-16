@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import { useState } from "react"
 const Signup = () => {
     const [UserName,setUserName]=useState("")
 const [Password,setPassword]=useState("")
 const [error,seterror]=useState("")
 const [Email,setEmail]=useState("")
+const [Role,setRole]=useState("Team Lead")
+const navigate= useNavigate()
 const handleSignUp = async(e)=>{
+    
 e.preventDefault()
 if(UserName?.trim()&&Password?.trim()&&Email?.trim()){
-    const user_data = {"UserName":UserName,"Email":Email,"Role":Role,"Password":Password}
+    const user_data = {"UserName":UserName,"Email":Email,"Role":Role,"Password":Password,"Leader_id":"NaN"}
+    console.log(user_data)
         const response = await fetch("http://localhost:4000/api/user/",{
         method:"POST",
         body:JSON.stringify(user_data),
@@ -16,6 +20,10 @@ if(UserName?.trim()&&Password?.trim()&&Email?.trim()){
           'Content-Type':'application/JSON'
         }
       })
+      if(response.ok){
+      navigate("/Login",{replace:true})}
+}else{
+    seterror("Something went wrong.")
 }
 }
     return (
@@ -49,9 +57,16 @@ if(UserName?.trim()&&Password?.trim()&&Email?.trim()){
                                 <i className="fa-solid fa-eye absolute translate-x-[-45px] translate-y-[23px]"></i>
                             </div>
                         </div>
+                        <div className="flex flex-col text-start gap-1">
+                            <h1>Role:</h1>
+                        <select name="task[tm]" className="py-2 px-3 mt-2 md:mt-3 rounded-full bg-white text-black text-sm md:text-base">
+                                <option onClick={()=>setRole("Team Lead")}>Team Leader</option>
+                                <option onClick={()=>setRole("Team Member")}>Team Member</option>
+                            </select>
+                        </div>
                     </div>
                     <div className="flex flex-col text-center gap-3">
-                        <input type="submit" value="Signup" className="bg-[#1b1b1b] cursor-pointer text-white p-4 rounded-[50px] text-xl" />
+                        <button onClick={handleSignUp} type="button" value="Signup" className="bg-[#1b1b1b] cursor-pointer text-white p-4 rounded-[50px] text-xl" >Button</button>
                         <div className="flex justify-between px-3">
                             <span>
                                 Already a user?
@@ -59,6 +74,7 @@ if(UserName?.trim()&&Password?.trim()&&Email?.trim()){
                             <Link to="/Login" className="font-semibold">
                                 Login
                             </Link>
+                            {error&&<h2 className="text-red-500 text-lg">{error}</h2>}
                         </div>
                     </div>
                 </form>

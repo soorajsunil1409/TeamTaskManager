@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = () => {
-   localStorage.clear()
+
     const navigate=useNavigate();
     const [pageNumber, setPageNumber] = useState(0)
     useEffect(() => {
