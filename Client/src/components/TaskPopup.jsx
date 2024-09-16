@@ -20,7 +20,7 @@ const TaskPopup = () => {
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex text-xl gap-4 items-center">
-                            Assigned By:
+                            Assign ed By:
                             <div className="p-2 bg-white text-black flex-grow font-semibold rounded-xl px-10">
                                 Leader Name
                             </div>
