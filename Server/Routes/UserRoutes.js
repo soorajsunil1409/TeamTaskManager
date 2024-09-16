@@ -24,9 +24,15 @@ router.get("/:UserName", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { UserName, Password, Role } = req.body;
+  const { UserName, Password, Role, Email, Leader_id } = req.body;
   try {
-    const user_data = await UserModel.create({ UserName, Password, Role });
+    const user_data = await UserModel.create({
+      UserName,
+      Password,
+      Role,
+      Email,
+      Leader_id,
+    });
     res.status(200).json(user_data);
   } catch (error) {
     res.status(400).json({ error: error.message });
