@@ -1,11 +1,8 @@
-import Dashboard from "./pages/Dashboard"
-import Signup from "./pages/Signup"
-
+import Login from "./pages/Login.jsx"
 const App = () => {
   return (
-    <div className="flex w-[100vw] h-[100vh]">
-      {/* <Dashboard /> */}
-      <Signup />
+    <div className="absolute w-full h-full">
+      <Login/>
     </div>
   )
 }
