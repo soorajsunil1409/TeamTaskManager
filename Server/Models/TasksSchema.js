@@ -8,20 +8,13 @@ const taskSchema = new Schema(
     Member_id: { type: String },
     description: { type: String, required: true },
     priority: { type: String, enum: ["Low", "Medium", "High"], required: true },
-    dueDate: { type: Date, required: true },
+    dueDate: { type: String, required: true },
     status: {
       type: String,
       enum: ["To Do", "In Progress", "Completed"],
       default: "To Do",
     },
-    assign: { type: Schema.Types.ObjectId, ref: "User" },
-    comments: [
-      {
-        commentText: { type: String, required: true },
-        commenter: { type: Schema.Types.ObjectId, ref: "User" },
-        createdAt: { type: Date, default: Date.now },
-      },
-    ],
+    TaskChat: [],
   },
   { timestamps: true }
 );
