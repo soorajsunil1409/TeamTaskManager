@@ -28,7 +28,7 @@ const Dashboard = () => {
       }, [navigate]);
     return (
         <div className={`flex w-full h-full`}>
-            <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''}`}>
+            <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''} transition-all duration-150`}>
                 <div className="md:flex hidden flex-col gap-5 w-[270px] h-full p-5 border-r-2">
                     <div className="flex items-center justify-around font-bold text-end text-2xl gap-2">
                         <img src={AppIcon} alt="" />
@@ -100,10 +100,11 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className="absolute w-full h-full" style={{
-                transform: pageNumber == 1 ? 'scale(1)' : 'scale(0)'
+            <div className="absolute w-full h-full transition-all duration-150" style={{
+                transform: pageNumber == 1 ? 'scale(1)' : 'scale(0)',
+                visibility: pageNumber == 1 ? 'visible' : 'hidden'
             }}>
-                <NewTask />
+                <NewTask setPageNumber={setPageNumber} />
             </div>
         </div >
     )

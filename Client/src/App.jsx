@@ -6,6 +6,8 @@ import Signup from "./pages/Signup.jsx"
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import TaskPopup from "./components/TaskPopup.jsx"
+import AllTasks from "./pages/AllTasks.jsx"
 
 const App = () => {
   
