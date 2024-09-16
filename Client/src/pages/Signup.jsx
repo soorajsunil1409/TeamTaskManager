@@ -5,7 +5,7 @@ const Signup = () => {
                 <div className="bg-[#E9754F] w-[60%] h-[300px] rounded-br-full"></div>
                 <div className="relative flex justify-end items-end border-[#1b1b1b] border-t-[50px] border-l-[50px] w-[60%] h-[300px] rounded-tl-full translate-x-[66.7%]"></div>
             </div>
-            <div className="md:w-[50%] bg-[#dedede] md:bg-white w-full h-full flex flex-col text-center gap-5 justify-around">
+            <div className="md:w-[50%] bg-[#dedede] md:bg-white w-full h-full flex flex-col text-center gap-16 justify-center">
                 <div className="text-3xl font-semibold">Signup</div>
                 <form action="" className="flex flex-col gap-[70px] md:px-[15%] px-[5%]">
                     <div className="flex flex-col gap-4">
