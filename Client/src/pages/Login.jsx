@@ -1,6 +1,34 @@
+import { useEffect,useState } from "react";
+import { useNavigate,Link } from "react-router-dom"
+
 function Login() {
+const [UserName,setUserName]=useState("")
+const [Password,setPassword]=useState("")
+const [error,seterror]=useState("")
+const navigate=useNavigate();
+const handleLogin = async(e)=>{
+  e.preventDefault()
+  if(UserName?.trim()&&Password?.trim()){
+    console.log(true)
+    const get_response= await fetch("http://localhost:4000/api/user/"+`${UserName}`);
+    if(get_response.ok){
+      
+      
+      const data = await get_response.json();
+      
+      if (data.Password===Password){
+        localStorage.setItem("isLoggedin",true)
+        navigate('/',{state:data,replace:true})
+      }else{
+        seterror("Invalid UserName or Password")
+      } }else{
+        seterror("Fill in required fields.")
+      }}else{
+        seterror("Fill in required fields.")
+      }
+}
     return (
-      <>
+      <div className="absolute w-full h-full">
         <div className="w-full h-full flex items-center justify-center py-10 px-[10%]">
           <div className="relative hidden md:flex md:w-[50%] h-full bg-[#DEDEDE] flex-col">
             <div className="w-[50%] h-[50%] rounded-br-full border-b-[50px] border-r-[50px] border-[#1B1B1B]"></div>
@@ -20,6 +48,8 @@ function Login() {
                       placeholder="Enter your username"
                       className="ml-3 text-sm md:text-base lg:text-lg w-full outline-none"
                       name="username"
+                      value={UserName}
+                      onChange={(e)=>{setUserName(e.target.value)}}
                     />
                   </div>
                 </div>
@@ -31,25 +61,32 @@ function Login() {
                       placeholder="Enter your password"
                       className="ml-3 text-sm md:text-base lg:text-lg w-full outline-none"
                       name="pass"
+                      type="password"
+                      value={Password}
+                      onChange={(e)=>{setPassword(e.target.value)}}
                     />
                   </div>
                 </div>
                 <div className="w-full flex flex-col">
-                  <button className="p-5 text-lg md:text-xl lg:text-2xl font-bold bg-black text-white rounded-[50px]">
+                  <button className="p-5 text-lg md:text-xl lg:text-2xl font-bold bg-black text-white rounded-[50px]"
+                  onClick={handleLogin}
+                  >
                     Login
                   </button>
+                  {error&&<h2 className="text-red-500 text-lg">Invalid UserName or Password.</h2>}
                   <div className="flex justify-between mx-5 my-2 text-md md:text-lg lg:text-xl">
                     <span>Create new account?</span>
-                    <a href="#" className="font-medium">
+                    <Link to="/Signup" className="font-medium">
                       Sign Up
-                    </a>
+                    </Link>
                   </div>
                 </div>
+                
               </form>
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
   

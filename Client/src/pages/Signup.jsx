@@ -1,4 +1,23 @@
+import { Link } from "react-router-dom"
+import { useState } from "react"
 const Signup = () => {
+    const [UserName,setUserName]=useState("")
+const [Password,setPassword]=useState("")
+const [error,seterror]=useState("")
+const [Email,setEmail]=useState("")
+const handleSignUp = async(e)=>{
+e.preventDefault()
+if(UserName?.trim()&&Password?.trim()&&Email?.trim()){
+    const user_data = {"UserName":UserName,"Email":Email,"Role":Role,"Password":Password}
+        const response = await fetch("http://localhost:4000/api/user/",{
+        method:"POST",
+        body:JSON.stringify(user_data),
+        headers:{
+          'Content-Type':'application/JSON'
+        }
+      })
+}
+}
     return (
         <div className="w-full h-full p-10 md:px-[150px] flex">
             <div className="bg-[#dedede] md:w-[50%] h-full md:flex hidden flex-col justify-between">
@@ -11,17 +30,23 @@ const Signup = () => {
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col text-start gap-1">
                             <span className="text-lg ml-4">Username</span>
-                            <input type="text" placeholder="Enter your username" name="username" id="" className=" p-4 rounded-[50px] border-[2px] border-[#dedede]" />
+                            <input type="text" value={UserName} placeholder="Enter your username" name="username" id="" className=" p-4 rounded-[50px] border-[2px] border-[#dedede]" 
+                            onChange={(e)=>setUserName(e.target.value)}
+                            />
                         </div>
                         <div className="flex flex-col text-start gap-1">
                             <span className="text-lg ml-4">Email</span>
-                            <input type="email" placeholder="Enter your email" name="email" id="" className=" p-4 rounded-[50px] border-[2px] border-[#dedede]" />
+                            <input type="email" value={Email} placeholder="Enter your email" name="email" id="" className=" p-4 rounded-[50px] border-[2px] border-[#dedede]"
+                            onChange={(e)=>setEmail(e.target.value)}
+                            />
                         </div>
                         <div className="flex flex-col text-start gap-1">
                             <span className="text-lg ml-4">Password</span>
                             <div className="w-full">
-                                <input type="password" placeholder="Enter your password" name="password" id="" className="w-full p-4 rounded-[50px] border-[2px] border-[#dedede]" />
-                                <i class="fa-solid fa-eye absolute translate-x-[-45px] translate-y-[23px]"></i>
+                                <input type="password" value={Password} placeholder="Enter your password" name="password" id="" className="w-full p-4 rounded-[50px] border-[2px] border-[#dedede]"
+                                 onChange={(e)=>setPassword(e.target.value)}
+                                 />
+                                <i className="fa-solid fa-eye absolute translate-x-[-45px] translate-y-[23px]"></i>
                             </div>
                         </div>
                     </div>
@@ -31,9 +56,9 @@ const Signup = () => {
                             <span>
                                 Already a user?
                             </span>
-                            <a href="#" className="font-semibold">
+                            <Link to="/Login" className="font-semibold">
                                 Login
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </form>

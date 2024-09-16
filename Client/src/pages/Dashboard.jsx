@@ -9,9 +9,23 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { BiSolidUpArrow } from "react-icons/bi";
 import { BiSolidDownArrow } from "react-icons/bi";
 import NewTask from "../components/NewTask";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 
-const Dashboard = ({ pageNumber, setPageNumber }) => {
+
+
+const Dashboard = () => {
+   localStorage.clear()
+    const navigate=useNavigate();
+    const [pageNumber, setPageNumber] = useState(0)
+    useEffect(() => {
+        const isLoggedin = localStorage.getItem('isLoggedin') === 'true';
+    
+        if (!isLoggedin) {
+          // If not logged in, redirect to the login page
+          navigate('/Login');
+        }
+      }, [navigate]);
     return (
         <div className={`flex w-full h-full`}>
             <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''}`}>
