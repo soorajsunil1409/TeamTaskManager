@@ -1,6 +1,6 @@
 const Signup = () => {
     return (
-        <div className="w-full h-full p-10 flex">
+        <div className="w-full h-full p-10 md:px-[150px] flex">
             <div className="bg-[#dedede] md:w-[50%] h-full md:flex hidden flex-col justify-between">
                 <div className="bg-[#E9754F] w-[60%] h-[300px] rounded-br-full"></div>
                 <div className="relative flex justify-end items-end border-[#1b1b1b] border-t-[50px] border-l-[50px] w-[60%] h-[300px] rounded-tl-full translate-x-[66.7%]"></div>
