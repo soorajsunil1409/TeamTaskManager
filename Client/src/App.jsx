@@ -12,7 +12,7 @@ const App = () => {
   return (
     <div className="absolute w-full h-full">
       {/* <Dashboard pageNumber={pageNumber} setPageNumber={setPageNumber} /> */}
-      <TaskPopup />
+      <AllTasks/>
     </div>
   )
 }
