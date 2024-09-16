@@ -4,6 +4,7 @@ import Login from "./pages/Login.jsx"
 import NewTask from "./components/NewTask.jsx"
 import Signup from "./pages/Signup.jsx"
 import TaskPopup from "./components/TaskPopup.jsx"
+import AllTasks from "./pages/AllTasks.jsx"
 
 const App = () => {
   const [pageNumber, setPageNumber] = useState(0)
