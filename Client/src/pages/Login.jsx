@@ -2,13 +2,13 @@ function Login() {
     return (
       <>
         <div className="w-full h-full flex items-center justify-center py-10 px-[10%]">
-          <div className="relative hidden md:flex md:w-[50%] h-full bg-[#DEDEDE] flex-col ">
+          <div className="relative hidden md:flex md:w-[50%] h-full bg-[#DEDEDE] flex-col">
             <div className="w-[50%] h-[50%] rounded-br-full border-b-[50px] border-r-[50px] border-[#1B1B1B]"></div>
             <div className="w-[50%] h-[50%] bg-[#1B1B1B] rounded-tl-full border-t-[50px] border-l-[50px] border-[#1B1B1B] absolute bottom-0 right-0"></div>
           </div>
-          <div className="w-[90%] md:w-[50%] h-full flex items-center justify-center">
+          <div className="w-full sm:w-[90%] md:w-[50%] h-full flex items-center justify-center">
             <div className="bg-[#DEDEDE] md:bg-white w-[90%] h-[90%] flex flex-col items-center">
-              <div className="h-[70px] w-full m-5 p-10 font-bold text-2xl md:text-3xl lg:text-4xl">
+              <div className="h-[70px] w-full mx-5 p-10 font-bold text-2xl md:text-3xl lg:text-4xl">
                 Login
               </div>
               <form className="h-[400px] flex flex-col w-full p-5 md:p-10">
@@ -19,6 +19,7 @@ function Login() {
                     <input
                       placeholder="Enter your username"
                       className="ml-3 text-sm md:text-base lg:text-lg w-full outline-none"
+                      name="username"
                     />
                   </div>
                 </div>
@@ -29,6 +30,7 @@ function Login() {
                     <input
                       placeholder="Enter your password"
                       className="ml-3 text-sm md:text-base lg:text-lg w-full outline-none"
+                      name="pass"
                     />
                   </div>
                 </div>
@@ -36,7 +38,7 @@ function Login() {
                   <button className="p-5 text-lg md:text-xl lg:text-2xl font-bold bg-black text-white rounded-[50px]">
                     Login
                   </button>
-                  <div className="flex justify-between mx-5 my-2 text-xs md:text-sm lg:text-md">
+                  <div className="flex justify-between mx-5 my-2 text-md md:text-lg lg:text-xl">
                     <span>Create new account?</span>
                     <a href="#" className="font-medium">
                       Sign Up
