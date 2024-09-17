@@ -30,6 +30,7 @@ const Dashboard = () => {
       const [tasks,setTasks] = useState([]);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
+      
     
       useEffect(() => {
         // Fetch data from localhost:4000/api/user when the component mounts
@@ -64,6 +65,10 @@ const Dashboard = () => {
             setLoading(false);
           });
       }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
     return (
         <div className={`flex w-full h-full`}>
             <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''} transition-all duration-150`}>
@@ -152,7 +157,7 @@ const Dashboard = () => {
                                 <tbody>
                                     <tr className="bg-white text-black">
                                         <td className="p-3 text-center border border-black">1</td>
-                                        <td className="p-3 text-center border border-black">{tasks[0].title}</td>
+                                        <td className="p-3 text-center border border-black">{tasks && tasks[0].title}</td>
                                         <td className="p-3 text-center border border-black">{tasks[0].Member_id}</td>
                                         <td className="p-3 text-center border border-black">{tasks[0].status}</td>
                                         <td className="p-3 text-center border border-black">{tasks[0].priority}</td>
