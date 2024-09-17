@@ -82,15 +82,15 @@ function AllTasks({ pageNumber, setPageNumber }) {
                     <div className="w-full h-[calc(100vh-50px)] pt-8">
                         <div className="flex flex-col  h-[1000px] sm:h-full w-full ">
                             <div className="h-fit md:h-[200px] flex justify-center gap-8 w-full items-center flex-col md:flex-row md:p-0 p-8">
-                                <div className="w-[100%] flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-2 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-2 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
                                     <span>Pending</span>
                                     <span>{pendingTasks}</span>
                                 </div>
-                                <div className="w-[100%] flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
                                     <span>Pending</span>
                                     <span>{completedTasks}</span>
                                 </div>
-                                <div className="w-[100%] flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
                                     <span>All Tasks</span>
                                     <span>{allTasks.length}</span>
                                 </div>
@@ -122,7 +122,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                             <tbody>
                                                 {
                                                     allTasks.map((task, i) => (
-                                                        <tr className="bg-white text-black">
+                                                        <tr className="bg-white text-black cursor-pointer" onClick={showTask}>
                                                             <td className="p-3 text-center border border-black">{i + 1}</td>
                                                             <td className="p-3 text-center border border-black">{task.title}</td>
                                                             <td className="p-3 text-center border border-black">{task.Member_id}</td>
