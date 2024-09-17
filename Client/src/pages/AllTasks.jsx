@@ -9,6 +9,7 @@ import NewTask from "../components/NewTask";
 import Navmenu from "../components/Navmenu";
 import { useNavigate } from "react-router-dom";
 import { RiLogoutBoxRFill } from "react-icons/ri";
+import TaskPopup from "../components/TaskPopup";
 const url = "http://localhost:4000";
 
 
@@ -16,19 +17,25 @@ const url = "http://localhost:4000";
 function AllTasks({ pageNumber, setPageNumber }) {
     const navigate = useNavigate()
     const [Profile,setProfile]=useState(false)
+
     const [createTaskPopup, setCreateTaskPopup] = useState(false)
+    const [editTaskPopup, setEditTaskPopup] = useState(false)
     const [allTasks, setAllTasks] = useState([]);
     const [pendingTasks, setPendingTasks] = useState(0);
     const [completedTasks, setCompletedTasks] = useState(0);
 
+    const [currentEditingTask, setCurrentEditingTask] = useState({});
+
     const isTL = false;
-    const showTask = () => {
-        console.log("Task Shown");
+    const showTask = (task) => {
+        setEditTaskPopup(true);
+        setCurrentEditingTask(task);
+        console.log(task);
     }
 
 
     const createTask = () => {
-        setCreateTaskPopup(true)
+        setCreateTaskPopup(true);
         console.log("Task Added");
     }
     useEffect(() => {
@@ -39,7 +46,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
             navigate('/Login');
         }
 
-      }, [navigate]);
+    }, [navigate]);
 
     useEffect(() => {
         const getTasks = async () => {
@@ -75,17 +82,18 @@ function AllTasks({ pageNumber, setPageNumber }) {
 
     return (
         <div className={`flex w-full h-full`}>
-            <div className={`flex w-full h-full ${createTaskPopup ? 'blur-md' : ''} transition-all duration-150`}>
+            <div className={`flex w-full h-full ${createTaskPopup || editTaskPopup ? 'blur-md' : ''} transition-all duration-150`}>
                 {/* <div className={`flex w-full h-full transition-all duration-150`}> */}
                 <Sidebar pageNumber={pageNumber} setPageNumber={setPageNumber} />
 
                 <div className="md:w-[calc(100vw-270px)] w-full h-full">
                     <div className="flex w-full h-[50px] border-b-2">
                         <div className="w-[50%] h-full">
-                        <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                            <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber} />
                         </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
+
                             <IoPersonCircleOutline className="relative text-[30px] cursor-pointer" onClick={()=>setProfile((prev)=>(!prev))}/>
                             <div style={{transform:Profile? "scale(1)":"scale(0)"}} className="absolute cursor-pointer transition-all duration-200  z-[10] gap-3 bg-red-600 top-14 flex justify-center items-center w-[120px] h-[50px] right-1 border-2 rounded-lg "
                             onClick={()=>{localStorage.clear();window.location.reload()}}
@@ -94,6 +102,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                <h2 className="font-bold text-lg text-white" > Logout</h2>
                             </div>
                            
+
                         </div>
                     </div>
 
@@ -140,7 +149,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                             <tbody>
                                                 {
                                                     allTasks.map((task, i) => (
-                                                        <tr className="bg-white text-black cursor-pointer" onClick={showTask}>
+                                                        <tr className="bg-white text-black cursor-pointer" onClick={() => showTask(task)}>
                                                             <td className="p-3 text-center border border-black">{i + 1}</td>
                                                             <td className="p-3 text-center border border-black">{task.title}</td>
                                                             <td className="p-3 text-center border border-black">{task.Member_id}</td>
@@ -164,6 +173,13 @@ function AllTasks({ pageNumber, setPageNumber }) {
                 visibility: createTaskPopup ? 'visible' : 'hidden'
             }}>
                 <NewTask setCreateTaskPopup={setCreateTaskPopup} />
+            </div>
+
+            <div className="absolute w-full h-full transition-all duration-150" style={{
+                transform: editTaskPopup ? 'scale(1)' : 'scale(0)',
+                visibility: editTaskPopup ? 'visible' : 'hidden'
+            }}>
+                <TaskPopup setEditTaskPopup={setEditTaskPopup} task={currentEditingTask} />
             </div>
         </div >
     );
