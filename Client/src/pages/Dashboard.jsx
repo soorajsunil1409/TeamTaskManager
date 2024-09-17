@@ -83,8 +83,7 @@ const Dashboard = ({ pageNumber, setPageNumber }) => {
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                         
                             <FaRegBell className="text-2xl cursor-pointer" />
-                            <FaMagnifyingGlass className="text-2xl cursor-pointer" />
-                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" />
+                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={()=>{localStorage.clear();window.location.reload()}} />
                         </div>
                     </div>
 
@@ -124,44 +123,51 @@ const Dashboard = ({ pageNumber, setPageNumber }) => {
                             <div>
                             
                         {/* Wrap the table rows in a scrollable div */}
-                        <div className="w-full h-[300px] overflow-hid">
-                            <table className="w-full text-md sm:text-xl font-semibold bg-white rounded-3xl mb-4 border-separate border-spacing-0">
-                            <thead className="bg-black text-white">
-                                <tr>
+                        {tasks && (
+                            <div className="w-full h-[300px] overflow-hid">
+                                <table className="w-full  text-md sm:text-xl font-semibold bg-white rounded-3xl mb-4 border-separate border-spacing-0">
+                                <thead className="bg-black text-white">
+                                    <tr>
                                     <th className="p-3 border border-black">#</th>
                                     <th className="px-10 border border-black">Task Name</th>
                                     <th className="p-3 border border-black">Team Member</th>
                                     <th className="p-3 border border-black">Status</th>
                                     <th className="p-3 border border-black">Priority</th>
-                                </tr>
-                            </thead>
+                                    </tr>
+                                </thead>
                                 <tbody>
+                                    {tasks.length > 0 && (
                                     <tr className="bg-white text-black">
                                         <td className="p-3 text-center border border-black">1</td>
-                                        <td className="p-3 text-center border border-black">{tasks && tasks[0].title}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[0].Member_id}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[0].status}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[0].priority}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[0]?.title}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[0]?.Member_id}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[0]?.status}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[0]?.priority}</td>
                                     </tr>
+                                    )}
+                                    {tasks.length > 1 && (
                                     <tr className="bg-white text-black">
                                         <td className="p-3 text-center border border-black">2</td>
-                                        <td className="p-3 text-center border border-black">{tasks[1].title}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[1].Member_id}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[1].status}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[1].priority}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[1]?.title}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[1]?.Member_id}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[1]?.status}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[1]?.priority}</td>
                                     </tr>
+                                    )}
+                                    {tasks.length > 2 && (
                                     <tr className="bg-white text-black">
                                         <td className="p-3 text-center border border-black">3</td>
-                                        <td className="p-3 text-center border border-black">{tasks[2].title}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[2].Member_id}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[2].status}</td>
-                                        <td className="p-3 text-center border border-black">{tasks[2].priority}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[2]?.title}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[2]?.Member_id}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[2]?.status}</td>
+                                        <td className="p-3 text-center border border-black">{tasks[2]?.priority}</td>
                                     </tr>
-                                    
-                                    {/* Repeat for more rows */}
+                                    )}
+                                    {/* Repeat for more rows if necessary */}
                                 </tbody>
-                            </table>
+                                </table>
                             </div>
+)}
                             </div>
                         </div>
                     </div>

@@ -9,8 +9,6 @@ import NewTask from "../components/NewTask";
 import Navmenu from "../components/Navmenu";
 import TaskPopup from "../components/TaskPopup";
 
-
-
 const url = "http://localhost:4000";
 
 
@@ -37,6 +35,15 @@ function AllTasks({ pageNumber, setPageNumber }) {
         setCreateTaskPopup(true);
         console.log("Task Added");
     }
+    useEffect(() => {
+        const isLoggedin = localStorage.getItem('isLoggedin') === 'true';
+
+        if (!isLoggedin) {
+            // If not logged in, redirect to the login page
+            navigate('/Login');
+        }
+
+      }, [navigate]);
 
     useEffect(() => {
         const getTasks = async () => {
@@ -83,8 +90,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                         </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
-                            <FaMagnifyingGlass className="text-2xl cursor-pointer" />
-                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" />
+                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={()=>{localStorage.clear();window.location.reload()}} />
                         </div>
                     </div>
 
@@ -96,7 +102,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                     <span>{pendingTasks}</span>
                                 </div>
                                 <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
-                                    <span>Pending</span>
+                                    <span>Completed</span>
                                     <span>{completedTasks}</span>
                                 </div>
                                 <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
