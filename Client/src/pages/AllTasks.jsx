@@ -4,22 +4,64 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { BiSolidUpArrow } from "react-icons/bi";
 import Sidebar from "../components/Sidebar";
-import { useState } from "react";
-import Navmenu from "../components/Navmenu";
+import { useEffect, useState } from "react";
 import NewTask from "../components/NewTask";
+
+
+const url = "http://localhost:4000";
+
+
 
 function AllTasks({ pageNumber, setPageNumber }) {
 
     const [createTaskPopup, setCreateTaskPopup] = useState(false)
+    const [allTasks, setAllTasks] = useState([]);
+    const [pendingTasks, setPendingTasks] = useState(0);
+    const [completedTasks, setCompletedTasks] = useState(0);
 
     const isTL = false;
     const showTask = () => {
         console.log("Task Shown");
     }
+
+
     const createTask = () => {
         setCreateTaskPopup(true)
         console.log("Task Added");
     }
+
+    useEffect(() => {
+        const getTasks = async () => {
+            const res = await fetch(`${url}/api/tasks`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await res.json();
+
+            setAllTasks(data);
+
+            let pendingCount = 0;
+            let completedCount = 0;
+
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].status === "To Do" || data[i].status === "In Progress") {
+                    pendingCount++;
+                } else {
+                    completedCount++;
+                }
+            }
+
+            setPendingTasks(pendingCount);
+            setCompletedTasks(completedCount);
+        };
+
+        getTasks();
+    }, []);
+
+
     return (
         <div className={`flex w-full h-full`}>
             <div className={`flex w-full h-full ${createTaskPopup ? 'blur-md' : ''} transition-all duration-150`}>
@@ -38,32 +80,20 @@ function AllTasks({ pageNumber, setPageNumber }) {
                         </div>
                     </div>
 
-                    <div className="w-full h-[calc(100vh-50px)] p-8">
+                    <div className="w-full h-[calc(100vh-50px)] pt-8">
                         <div className="flex flex-col  h-[1000px] sm:h-full w-full ">
-                            <div className=" h-fit md:h-[200px] flex justify-center items-center flex-col md:flex-row">
-                                <div className="w-[100%] md:w-[20%] h-[150px] bg-white m-4 text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
-                                    <p className="absolute top-5">
-                                        Pending
-                                    </p>
-                                    <div className=" absolute bottom-4 right-5  p-4 rounded-full flex justify-center items-center font-bold aspect-square text-3xl">
-                                        07
-                                    </div>
+                            <div className="h-fit md:h-[200px] flex justify-center gap-8 w-full items-center flex-col md:flex-row md:p-0 p-8">
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-2 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                    <span>Pending</span>
+                                    <span>{pendingTasks}</span>
                                 </div>
-                                <div className="w-[100%] md:w-[20%] h-[150px] bg-white m-4 text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
-                                    <p className="absolute top-5">
-                                        Completed
-                                    </p>
-                                    <div className=" absolute bottom-4 right-5 p-4 rounded-full flex justify-center items-center font-bold aspect-square text-3xl">
-                                        08
-                                    </div>
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                    <span>Pending</span>
+                                    <span>{completedTasks}</span>
                                 </div>
-                                <div className="w-[100%] md:w-[20%] h-[150px] bg-white m-4 text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
-                                    <p className="absolute top-5">
-                                        Assigned
-                                    </p>
-                                    <div className=" absolute bottom-4 right-5 p-4 rounded-full flex justify-center items-center font-bold aspect-square text-3xl">
-                                        15
-                                    </div>
+                                <div className="w-[100%] justify-center items-center flex flex-col md:w-[25%] h-[150px] bg-white text-2xl font-semibold p-8 relative rounded-[30px] shadow-[0_20px_50px_rgba(0,_0,_0,_0.7)]">
+                                    <span>All Tasks</span>
+                                    <span>{allTasks.length}</span>
                                 </div>
                             </div>
 
@@ -82,53 +112,25 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                             <tr>
                                                 <th className="p-3 border border-black">#</th>
                                                 <th className="p-3 border border-black">Task Name</th>
-                                                {/* Just remove the team member column while showing all tasks for team member */}
                                                 <th className="p-3 border border-black">Team Member</th>
                                                 <th className="p-3 border border-black">Status</th>
                                             </tr>
                                         </thead>
                                     </table>
-                                    {/* Wrap the table rows in a scrollable div */}
+
                                     <div className="w-[90%] h-[300px] overflow-y-scroll">
                                         <table className="w-full text-md sm:text-xl font-semibold bg-white rounded-3xl mb-4 border-separate border-spacing-0">
                                             <tbody>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">1</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">2</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">3</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">3</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">3</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                <tr className="bg-white text-black">
-                                                    <td className="p-3 text-center border border-black">3</td>
-                                                    <td className="p-3 text-center border border-black">Task Name</td>
-                                                    <td className="p-3 text-center border border-black">Team Member</td>
-                                                    <td className="p-3 text-center border border-black">Status</td>
-                                                </tr>
-                                                {/* Repeat for more rows */}
+                                                {
+                                                    allTasks.map((task, i) => (
+                                                        <tr className="bg-white text-black cursor-pointer" onClick={showTask}>
+                                                            <td className="p-3 text-center border border-black">{i + 1}</td>
+                                                            <td className="p-3 text-center border border-black">{task.title}</td>
+                                                            <td className="p-3 text-center border border-black">{task.Member_id}</td>
+                                                            <td className="p-3 text-center border border-black">{task.status}</td>
+                                                        </tr>
+                                                    ))
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
