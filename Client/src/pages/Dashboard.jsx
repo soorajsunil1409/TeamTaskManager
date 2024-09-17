@@ -1,29 +1,26 @@
-import AppIcon from "../assets/AppIcon.png"
-import { FaHome } from "react-icons/fa";
-import { TiTick } from "react-icons/ti";
-import { IoPerson } from "react-icons/io5";
-import { MdMenuBook } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { BiSolidUpArrow } from "react-icons/bi";
 import { BiSolidDownArrow } from "react-icons/bi";
 import NewTask from "../components/NewTask";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import Sidebar from "../components/Sidebar";
 
 
-const Dashboard = () => {
-    const navigate=useNavigate();
-    const [pageNumber, setPageNumber] = useState(0);
+
+const Dashboard = ({ pageNumber, setPageNumber }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         const isLoggedin = localStorage.getItem('isLoggedin') === 'true';
-    
+
         if (!isLoggedin) {
-          // If not logged in, redirect to the login page
-          navigate('/Login');
+            // If not logged in, redirect to the login page
+            navigate('/Login');
         }
+
       }, [navigate]);
 
       const [users, setUsers] = useState([]);
@@ -71,31 +68,10 @@ const Dashboard = () => {
   }
     return (
         <div className={`flex w-full h-full`}>
-            <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''} transition-all duration-150`}>
-                <div className="md:flex hidden flex-col gap-5 w-[270px] h-full p-5 border-r-2">
-                    <div className="flex items-center justify-around font-bold text-end text-2xl gap-2">
-                        <img src={AppIcon} alt="" />
-                        <span>Overflow Squad</span>
-                    </div>
-                    <div className="">
-                        <div className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 0 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(0)}>
-                            <FaHome className="text-2xl" />
-                            Dashboard
-                        </div>
-                        <div className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 1 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(1)}>
-                            <TiTick className="text-2xl" />
-                            Tasks
-                        </div>
-                        <div className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 2 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(2)}>
-                            <IoPerson className="text-2xl" />
-                            Team
-                        </div>
-                        <div className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 3 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(3)}>
-                            <MdMenuBook className="text-2xl" />
-                            Overview
-                        </div>
-                    </div>
-                </div>
+            {/* <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''} transition-all duration-150`}> */}
+            <div className={`flex w-full h-full transition-all duration-150`}>
+
+                <Sidebar pageNumber={pageNumber} setPageNumber={setPageNumber} />
 
                 <div className="md:w-[calc(100vw-270px)] w-full h-full">
                     <div className="flex w-full h-[50px] border-b-2">
@@ -187,12 +163,12 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className="absolute w-full h-full transition-all duration-150" style={{
+            {/* <div className="absolute w-full h-full transition-all duration-150" style={{
                 transform: pageNumber == 1 ? 'scale(1)' : 'scale(0)',
                 visibility: pageNumber == 1 ? 'visible' : 'hidden'
             }}>
                 <NewTask setPageNumber={setPageNumber} />
-            </div>
+            </div> */}
         </div >
     )
 }
