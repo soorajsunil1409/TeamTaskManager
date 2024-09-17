@@ -18,6 +18,7 @@ const handleLogin = async(e)=>{
       
       if (data.Password===Password){
         localStorage.setItem("isLoggedin",true)
+        localStorage.setItem("User_id",data._id)
         navigate('/',{state:data,replace:true})
       }else{
         seterror("Invalid UserName or Password")
@@ -73,7 +74,7 @@ const handleLogin = async(e)=>{
                   >
                     Login
                   </button>
-                  {error&&<h2 className="text-red-500 text-lg">Invalid UserName or Password.</h2>}
+                  {error&&<h2 className="text-red-500 text-lg">{error}</h2>}
                   <div className="flex justify-between mx-5 my-2 text-md md:text-lg lg:text-xl">
                     <span>Create new account?</span>
                     <Link to="/Signup" className="font-medium">

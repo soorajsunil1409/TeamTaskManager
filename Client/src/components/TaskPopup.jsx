@@ -75,7 +75,7 @@ const TaskPopup = () => {
                     </button>
                 </div>
 
-                <div className={`absolute w-full h-full p-5 md:p-10 backface-hidden transform rotate-y-180 flex flex-col gap-10 ${isFlipped ? "block" : "hidden"}`}>
+                {/* <div className={`absolute w-full h-full p-5 md:p-10 backface-hidden transform rotate-y-180 flex flex-col gap-10 ${isFlipped ? "block" : "hidden"}`}>
                     <div className="text-xl items-center font-semibold flex justify-between">
                         Edit Task Name:
                         <input type="text" className="rounded-3xl p-3 text-black font-normal" placeholder="To do" />
@@ -102,7 +102,7 @@ const TaskPopup = () => {
                             Go Back
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
