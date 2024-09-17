@@ -8,13 +8,14 @@ import { useEffect, useState } from "react";
 import NewTask from "../components/NewTask";
 import Navmenu from "../components/Navmenu";
 import TaskPopup from "../components/TaskPopup";
+import { useNavigate } from "react-router-dom";
 
 const url = "http://localhost:4000";
 
 
 
 function AllTasks({ pageNumber, setPageNumber }) {
-
+    const navigate = useNavigate();
     const [createTaskPopup, setCreateTaskPopup] = useState(false)
     const [editTaskPopup, setEditTaskPopup] = useState(false)
     const [allTasks, setAllTasks] = useState([]);
@@ -27,7 +28,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
     const showTask = (task) => {
         setEditTaskPopup(true);
         setCurrentEditingTask(task);
-        // console.log("Task Shown");
+        console.log(task);
     }
 
 
@@ -43,7 +44,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
             navigate('/Login');
         }
 
-      }, [navigate]);
+    }, [navigate]);
 
     useEffect(() => {
         const getTasks = async () => {
@@ -90,7 +91,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                         </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
-                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={()=>{localStorage.clear();window.location.reload()}} />
+                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={() => { localStorage.clear(); window.location.reload() }} />
                         </div>
                     </div>
 
