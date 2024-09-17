@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar";
 import { useEffect, useState } from "react";
 import NewTask from "../components/NewTask";
 import Navmenu from "../components/Navmenu";
+import TaskPopup from "../components/TaskPopup";
 
 const url = "http://localhost:4000";
 
@@ -15,18 +16,23 @@ const url = "http://localhost:4000";
 function AllTasks({ pageNumber, setPageNumber }) {
 
     const [createTaskPopup, setCreateTaskPopup] = useState(false)
+    const [editTaskPopup, setEditTaskPopup] = useState(false)
     const [allTasks, setAllTasks] = useState([]);
     const [pendingTasks, setPendingTasks] = useState(0);
     const [completedTasks, setCompletedTasks] = useState(0);
 
+    const [currentEditingTask, setCurrentEditingTask] = useState({});
+
     const isTL = false;
-    const showTask = () => {
-        console.log("Task Shown");
+    const showTask = (task) => {
+        setEditTaskPopup(true);
+        setCurrentEditingTask(task);
+        // console.log("Task Shown");
     }
 
 
     const createTask = () => {
-        setCreateTaskPopup(true)
+        setCreateTaskPopup(true);
         console.log("Task Added");
     }
     useEffect(() => {
@@ -73,14 +79,14 @@ function AllTasks({ pageNumber, setPageNumber }) {
 
     return (
         <div className={`flex w-full h-full`}>
-            <div className={`flex w-full h-full ${createTaskPopup ? 'blur-md' : ''} transition-all duration-150`}>
+            <div className={`flex w-full h-full ${createTaskPopup || editTaskPopup ? 'blur-md' : ''} transition-all duration-150`}>
                 {/* <div className={`flex w-full h-full transition-all duration-150`}> */}
                 <Sidebar pageNumber={pageNumber} setPageNumber={setPageNumber} />
 
                 <div className="md:w-[calc(100vw-270px)] w-full h-full">
                     <div className="flex w-full h-[50px] border-b-2">
                         <div className="w-[50%] h-full">
-                        <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                            <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber} />
                         </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
@@ -131,7 +137,7 @@ function AllTasks({ pageNumber, setPageNumber }) {
                                             <tbody>
                                                 {
                                                     allTasks.map((task, i) => (
-                                                        <tr className="bg-white text-black cursor-pointer" onClick={showTask}>
+                                                        <tr className="bg-white text-black cursor-pointer" onClick={() => showTask(task)}>
                                                             <td className="p-3 text-center border border-black">{i + 1}</td>
                                                             <td className="p-3 text-center border border-black">{task.title}</td>
                                                             <td className="p-3 text-center border border-black">{task.Member_id}</td>
@@ -155,6 +161,13 @@ function AllTasks({ pageNumber, setPageNumber }) {
                 visibility: createTaskPopup ? 'visible' : 'hidden'
             }}>
                 <NewTask setCreateTaskPopup={setCreateTaskPopup} />
+            </div>
+
+            <div className="absolute w-full h-full transition-all duration-150" style={{
+                transform: editTaskPopup ? 'scale(1)' : 'scale(0)',
+                visibility: editTaskPopup ? 'visible' : 'hidden'
+            }}>
+                <TaskPopup setEditTaskPopup={setEditTaskPopup} task={currentEditingTask} />
             </div>
         </div >
     );
