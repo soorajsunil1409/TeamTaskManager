@@ -7,15 +7,17 @@ import Sidebar from "../components/Sidebar";
 import { useEffect, useState } from "react";
 import NewTask from "../components/NewTask";
 import Navmenu from "../components/Navmenu";
-import TaskPopup from "../components/TaskPopup";
 import { useNavigate } from "react-router-dom";
-
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import TaskPopup from "../components/TaskPopup";
 const url = "http://localhost:4000";
 
 
 
 function AllTasks({ pageNumber, setPageNumber }) {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const [Profile,setProfile]=useState(false)
+
     const [createTaskPopup, setCreateTaskPopup] = useState(false)
     const [editTaskPopup, setEditTaskPopup] = useState(false)
     const [allTasks, setAllTasks] = useState([]);
@@ -91,7 +93,16 @@ function AllTasks({ pageNumber, setPageNumber }) {
                         </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
-                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={() => { localStorage.clear(); window.location.reload() }} />
+
+                            <IoPersonCircleOutline className="relative text-[30px] cursor-pointer" onClick={()=>setProfile((prev)=>(!prev))}/>
+                            <div style={{transform:Profile? "scale(1)":"scale(0)"}} className="absolute cursor-pointer transition-all duration-200  z-[10] gap-3 bg-red-600 top-14 flex justify-center items-center w-[120px] h-[50px] right-1 border-2 rounded-lg "
+                            onClick={()=>{localStorage.clear();window.location.reload()}}
+                            >
+                            <RiLogoutBoxRFill className="size-[30px] text-white" />
+                               <h2 className="font-bold text-lg text-white" > Logout</h2>
+                            </div>
+                           
+
                         </div>
                     </div>
 

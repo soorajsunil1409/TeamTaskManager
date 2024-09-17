@@ -21,6 +21,14 @@ const Sidebar = ({ pageNumber, setPageNumber }) => {
                     <TiTick className="text-2xl" />
                     Tasks
                 </Link>
+                <Link to="/#" className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 2 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(2)}>
+                    <IoPerson className="text-2xl" />
+                    Team
+                </Link>
+                <Link to="/#" className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 3 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(3)}>
+                    <MdMenuBook className="text-2xl" />
+                    Overview
+                </Link>
                 
             </div>
         </div>

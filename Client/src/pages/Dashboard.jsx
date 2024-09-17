@@ -11,9 +11,10 @@ import MobSidebar from "../components/Sidebar";
 import Navmenu from "../components/Navmenu";
 import { animationControls } from "framer-motion";
 import Sidebar from "../components/Sidebar";
-
+import { RiLogoutBoxRFill } from "react-icons/ri";
 const Dashboard = ({ pageNumber, setPageNumber }) => {
     const navigate = useNavigate();
+    const [Profile,setProfile]=useState(false)
     useEffect(() => {
         const isLoggedin = localStorage.getItem('isLoggedin') === 'true';
 
@@ -28,6 +29,7 @@ const Dashboard = ({ pageNumber, setPageNumber }) => {
       const [tasks,setTasks] = useState([]);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
+      
       
     
       useEffect(() => {
@@ -83,12 +85,20 @@ const Dashboard = ({ pageNumber, setPageNumber }) => {
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                         
                             <FaRegBell className="text-2xl cursor-pointer" />
-                            <IoPersonCircleOutline className="text-[30px] cursor-pointer" onClick={()=>{localStorage.clear();window.location.reload()}} />
+                            <IoPersonCircleOutline className="relative text-[30px] cursor-pointer" onClick={()=>setProfile((prev)=>(!prev))}/>
+                            <div style={{transform:Profile? "scale(1)":"scale(0)"}} className="absolute cursor-pointer transition-all duration-200  z-[10] gap-3 bg-red-600 top-14 flex justify-center items-center w-[120px] h-[50px] right-1 border-2 rounded-lg "
+                            onClick={()=>{localStorage.clear();window.location.reload()}}
+                            >
+                            <RiLogoutBoxRFill className="size-[30px] text-white" />
+                               <h2 className="font-bold text-lg text-white" > Logout</h2>
+                            </div>
+                           
+                           
                         </div>
                     </div>
 
                     <div className="w-full h-[calc(100vh-50px)] p-8">
-                        <div className="text-2xl w-full h-[10%] md:block hidden">Dashboard</div>
+                        <div className="text-4xl w-full h-[10%] md:block hidden font-bold">Dashboard</div>
                         <div className="flex md:flex-row flex-col w-full md:h-[30%] h-[60%] md:p-8 py-8 md:gap-16 gap-4">
                             <div className="border-2 rounded-lg md:w-[50%] h-full p-4">
                                 <div className="flex flex-col gap-4 justify-center h-full">
