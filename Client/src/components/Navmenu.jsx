@@ -35,7 +35,7 @@ const Navmenu = ({pageNumber,setPageNumber}) => {
       }, [mobMenu]);
   return (
     <>
-    <motion.div className="flex md:hidden z-[100] top-10  absolute flex-col gap-5 w-full h-[100vh] p-5 border-r-2"
+    <motion.div className="flex md:hidden z-[100] top-10  absolute flex-col gap-5 w-full h-full p-5 border-r-2"
         initial={{left:"-100%"}}
       animate={mobMenuControl} >
             <div className="flex items-center justify-around font-bold text-end text-2xl gap-2">
@@ -50,22 +50,15 @@ const Navmenu = ({pageNumber,setPageNumber}) => {
                     <TiTick className="text-2xl" />
                     Tasks
                 </Link>
-                <Link to="/" className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 2 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(2)}>
-                    <IoPerson className="text-2xl" />
-                    Team
-                </Link>
-                <Link to="/" className={`p-3 flex items-center justify-start cursor-pointer gap-3 ${pageNumber == 3 ? 'bg-[#dedede]' : ''}`} onClick={() => setPageNumber(3)}>
-                    <MdMenuBook className="text-2xl" />
-                    Overview
-                </Link>
+                
             </div>
         </motion.div>
-    <div className='flex justify-center items-center gap-3 md:hidden'>
+    <div className='flex justify-center items-center gap-3 mr-auto md:hidden'>
       <button type='button' className='text-2xl m-4 z-[10]  hover:cursor-pointer mr-auto ' onClick={()=>setmobMenu((prev)=>(!prev))}>
       <MenuButton isOpen={mobMenu} />
       </button>
       <img src={AppIcon} className='size-[30px]' alt="" />
-      <span className='font-bold text-lg'>Overflow Squad</span>
+      <span className='font-bold text-[1.1rem]'>Overflow Squad</span>
     </div>
     </>
   )
