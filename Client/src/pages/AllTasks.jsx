@@ -5,7 +5,7 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import { BiSolidUpArrow } from "react-icons/bi";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-
+import Navmenu from "../components/Navmenu";
 import NewTask from "../components/NewTask";
 
 function AllTasks({ pageNumber, setPageNumber }) {
@@ -28,7 +28,9 @@ function AllTasks({ pageNumber, setPageNumber }) {
 
                 <div className="md:w-[calc(100vw-270px)] w-full h-full">
                     <div className="flex w-full h-[50px] border-b-2">
-                        <div className="w-[50%] h-full"></div>
+                        <div className="w-[50%] h-full">
+                        <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                        </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
                             <FaRegBell className="text-2xl cursor-pointer" />
                             <FaMagnifyingGlass className="text-2xl cursor-pointer" />

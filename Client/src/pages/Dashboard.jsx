@@ -6,9 +6,11 @@ import { BiSolidDownArrow } from "react-icons/bi";
 import NewTask from "../components/NewTask";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import { MenuButton } from "../components/MenuButton";
+import MobSidebar from "../components/Sidebar";
+import Navmenu from "../components/Navmenu";
+import { animationControls } from "framer-motion";
 import Sidebar from "../components/Sidebar";
-
 
 const Dashboard = ({ pageNumber, setPageNumber }) => {
     const navigate = useNavigate();
@@ -25,12 +27,16 @@ const Dashboard = ({ pageNumber, setPageNumber }) => {
             {/* <div className={`flex w-full h-full ${pageNumber == 1 ? 'blur-md' : ''} transition-all duration-150`}> */}
             <div className={`flex w-full h-full transition-all duration-150`}>
 
-                <Sidebar pageNumber={pageNumber} setPageNumber={setPageNumber} />
+               <Sidebar pageNumber={pageNumber} setPageNumber={setPageNumber}/>
 
                 <div className="md:w-[calc(100vw-270px)] w-full h-full">
                     <div className="flex w-full h-[50px] border-b-2">
-                        <div className="w-[50%] h-full"></div>
+                    
+                        <div className="flex w-[50%] h-full">
+                        <Navmenu pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+                        </div>
                         <div className="flex justify-end items-center w-[50%] h-full p-5 gap-3">
+                        
                             <FaRegBell className="text-2xl cursor-pointer" />
                             <FaMagnifyingGlass className="text-2xl cursor-pointer" />
                             <IoPersonCircleOutline className="text-[30px] cursor-pointer" />
